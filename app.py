@@ -17,11 +17,11 @@ for r, d, f in os.walk(path):
 seqlen_tot = 0 # Initialising the seqlen values total 
 
 for f in files:
-  json_file = open(f,"r")
-  print("............Parsing File............" +f)
-  for line in json_file:
-    json_line = json.loads(line)
-    seqlen_tot=seqlen_tot + json_line["seqlen"]  # Incrementing seqlen value total
+  with  open(f,"r") as json_file:
+    print("............Parsing File............" +f)
+    for line in json_file:
+      json_line = json.loads(line)
+      seqlen_tot=seqlen_tot + json_line["seqlen"]  # Incrementing seqlen value total
 
 print("..............Total of seqlen values = " + str(seqlen_tot))
 
