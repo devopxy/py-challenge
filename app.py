@@ -1,29 +1,36 @@
-
 import sys  
 import os
 import json
 
-print("Please Enter The Path of Data Directory")
-path= input() # Feature : Check the path if exist exception handling 
-
-files = []  # Initialising the list of files in the given path
-
+def calculate(path):
+    files = []  # Initialising the list of files in the given path
+    sum = "error"
 # Scanning file in the path and populating the lisr=root, d=directories, f = files
-for r, d, f in os.walk(path):
-  for file in f:
-    if '.data.json' in file:
-       files.append(os.path.join(r, file))
+    try:
+        for r, d, f in os.walk(path):
+          for file in f:
+            if '.data.json' in file:
+               files.append(os.path.join(r, file))
 
-seqlen_tot = 0 # Initialising the seqlen values total 
+        seqlen_tot = 0 # Initialising the seqlen values total 
 
-for f in files:
-  with  open(f,"r") as json_file:
-    print("............Parsing File............" +f)
-    for line in json_file:
-      json_line = json.loads(line)
-      seqlen_tot=seqlen_tot + json_line["seqlen"]  # Incrementing seqlen value total
+        if len(files) == 0:
+            raise Exception ("No Files or wrong directory")
+        for f in files:
+          with  open(f,"r") as json_file:
+            print("............Parsing File............" +f)
+            for line in json_file:
+              json_line = json.loads(line)
+              seqlen_tot=seqlen_tot + json_line["seqlen"]  # Incrementing seqlen value total
 
-print("..............Total of seqlen values = " + str(seqlen_tot))
-
-
-
+        sum = seqlen_tot
+    except:
+        print("Exception occured")
+    finally:
+        return sum
+    
+if __name__ == '__main__':
+    
+    sum = calculate(sys.argv[2]) # third commandline argument is our required path
+   # 0 sum implies either an exception or file absence
+    print("===== seqlen total is :",sum)

@@ -19,3 +19,29 @@ What we are looking for:
 2. Readability (you clean your code)
 3. Good code design (you demonstrate code re-use)
 4. Best practice (you acknowledge established code conventions from the Python community)
+
+
+The `seqlen` total utility:
+--------------------------
+
+The python sources are as follows :
+
+1. app.py - is the python application 
+2. test.py - unit test for the application
+
+Both these indivisual sources need the command-line parameter stating the path of the `*.data.json` files to them.
+
+Example:
+   
+`$ python3 app.py -p <path to the data dir>`
+ 
+`$ python3 test.py -p <path to the data dir>`
+
+
+A Bash script `run-app-test.sh` automates a sample run and test of using both of these files. The script
+needs to set the variable DATAPATH to the path of the directory containing `*.data.json` files.
+
+Future Improvements:
+-----------------------
+1. Decision making and exception handling of commandline parameters
+2. Improving the performance with respect to disk I/O as the app.py is making freqent disk calls while reading the data line-by-line. 
